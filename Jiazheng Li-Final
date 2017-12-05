@@ -1,0 +1,48 @@
+import pandas as pd
+import math
+import re
+
+class product():
+    '''
+
+    '''
+    cost1 = 0.02
+    cost2 = 0.04
+    cost3 = 0.03
+    perfect_cost = 27 * 27 * 55 * math.pi / 3 * cost1 + 56 * 56 * 6 * cost2 + 58 * 58 * 6 * cost3
+
+    @staticmethod
+    def cone_cost(r, h):
+        '''
+        calculate the cost of the first part
+        :param r: the radius of the cone
+        :param h: the height of the cone
+        :return:  the money used by cost per cubic mm and the volume
+        >>> product.cone_cost(27, 55)
+        839.7477163045518
+        '''
+        return r * r * h * math.pi / 3 * product.cost1
+
+    @staticmethod
+    def cube1_cost(a):
+        '''
+        calculate the cost of the second part
+        :param a: the side length of a cube
+        :return: the money used by cost per square mm and the surface area
+        >>> product.cube1_cost(56)
+        752.64
+        '''
+        return a * a * 6 * product.cost2
+
+    @staticmethod
+    def cube2_cost(a):
+        '''
+        calculate the cost of the third part
+        :param a: the side length of a cube
+        :return: the money used by cost per square mm and the surface area
+        >>> product.cube2_cost(58)
+        605.52
+        '''
+        return a * a * 6 * product.cost3
+
+    print(perfect_cost)
