@@ -5,15 +5,12 @@ import random
 
 class product():
     '''
-
+    simulate the product making procedure
     '''
     cost1 = 0.02
     cost2 = 0.04
     cost3 = 0.03
     perfect_cost = 27 * 27 * 55 * math.pi / 3 * cost1 + 56 * 56 * 6 * cost2 + 58 * 58 * 6 * cost3
-
-    def __init__(self):
-        pass
 
     @staticmethod
     def cone_cost(r, h):
@@ -77,6 +74,9 @@ class product():
         '''
         calculate the approximate probability of successfully making a product
         :return: the calculated probability
+        >>> p = product.success_probability()
+        >>> 28 > p > 25
+        True
         '''
         good_products = 0
         total = 0
@@ -89,19 +89,32 @@ class product():
         return total/10000
 
     @staticmethod
-    def producing(budget) -> int:
+    def producing(budget):
         '''
         knowing the budget, calculate the number of products made during the procedure
         :param budget: the amount of the budget the user has
         :return: the number of products
+        >>> n = product.producing(50000)
+        >>> 6.5 < n < 8.5
+        True
         '''
         number = 0
-        while budget > product.perfect_cost:
-            one_product = product.making()
-            number = number + one_product[0]
-            budget = budget - one_product[1]
+        total_number = 0
+        for i in range(100):
+            one_budget = budget
+            while one_budget > product.perfect_cost:
+                one_product = product.making()
+                number = number + one_product[0]
+                one_budget = one_budget - one_product[1]
+            total_number = total_number + number
+            number = 0
+        number = total_number / 100
         return number
 
+    # @staticmethod
+    # def num_by_budget
+
 if __name__ == "__main__":
-    print(product.success_probability())
-    print(product.producing(500000000))
+    print(product.perfect_cost)
+    # print(product.success_probability())
+    print(product.producing(50000))
